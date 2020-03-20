@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0040)http://planning.cs.uiuc.edu/node658.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>13.1.2.1 A simple car</title>
+<meta name="description" content="13.1.2.1 A simple car">
+<meta name="keywords" content="web">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+
+<meta name="Generator" content="LaTeX2HTML v2008">
+<meta http-equiv="Content-Style-Type" content="text/css">
+
+<link rel="STYLESHEET" href="./car motion equations_files/web.css">
+
+<link rel="next" href="http://planning.cs.uiuc.edu/node659.html">
+<link rel="previous" href="http://planning.cs.uiuc.edu/node657.html">
+<link rel="up" href="http://planning.cs.uiuc.edu/node657.html">
+<link rel="next" href="http://planning.cs.uiuc.edu/node659.html">
+</head>
+
+<body text="#000000" bgcolor="#FFFFFF">
+
+<div class="navigation"><hr> <a name="tex2html1" href="http://planning.cs.uiuc.edu/"><img align="BOTTOM" border="0" src="./car motion equations_files/title3.gif" alt="title3.gif"></a> <br> 
+<a name="tex2html12101" href="http://planning.cs.uiuc.edu/node659.html">
+<img width="37" height="24" align="BOTTOM" border="0" alt="next" src="./car motion equations_files/next.gif"></a> 
+<a name="tex2html12095" href="http://planning.cs.uiuc.edu/node657.html">
+<img width="26" height="24" align="BOTTOM" border="0" alt="up" src="./car motion equations_files/up.gif"></a> 
+<a name="tex2html12089" href="http://planning.cs.uiuc.edu/node657.html">
+<img width="63" height="24" align="BOTTOM" border="0" alt="previous" src="./car motion equations_files/prev.gif"></a> 
+<a name="tex2html12097" href="http://planning.cs.uiuc.edu/node1.html">
+<img width="65" height="24" align="BOTTOM" border="0" alt="contents" src="./car motion equations_files/contents.gif"></a> 
+<a name="tex2html12099" href="http://planning.cs.uiuc.edu/node859.html">
+<img width="43" height="24" align="BOTTOM" border="0" alt="index" src="./car motion equations_files/index.gif"></a>
+<br>
+<b> Next:</b> <a name="tex2html12102" href="http://planning.cs.uiuc.edu/node659.html">13.1.2.2 A differential drive</a>
+<b>Up:</b> <a name="tex2html12096" href="http://planning.cs.uiuc.edu/node657.html">13.1.2 Kinematics for Wheeled</a>
+<b> Previous:</b> <a name="tex2html12090" href="http://planning.cs.uiuc.edu/node657.html">13.1.2 Kinematics for Wheeled</a>
+<hr> <p>
+</p></div>
+<!--End of Navigation Panel-->
+
+<h3><a name="SECTION05112100000000000000">
+<span class="arabic">13</span>.<span class="arabic">1</span>.<span class="arabic">2</span>.<span class="arabic">1</span> A simple car</a>
+</h3>
+
+<p>
+<a name="77412"></a>
+
+</p><p>
+One of the easiest examples to understand is the <em>simple car</em>,
+which is shown in Figure <a href="http://planning.cs.uiuc.edu/node658.html#fig:carlike">13.1</a>.  We all know that a car
+cannot drive sideways because the back wheels would have to slide
+instead of roll.  This is why parallel parking is challenging.  If all
+four wheels could be turned simultaneously toward the curb, it would
+be trivial to park a car.  The complicated maneuvers for parking a
+simple car arise because of rolling constraints.
+
+</p><p>
+
+</p><div align="CENTER"><a name="fig:carlike"></a><a name="79595"></a>
+<table>
+<caption align="BOTTOM"><strong>Figure 13.1:</strong>
+The simple car has three degrees of
+freedom, but the velocity space at any configuration is only
+two-dimensional.</caption>
+<tbody><tr><td><img width="309" height="309" border="0" src="./car motion equations_files/img5477.gif" alt="\begin{figure}\centerline{\psfig{file=figs/carlike.eps,width=2.7in}}\end{figure}"></td></tr>
+</tbody></table>
+</div>
+
+<p>
+The car can be imagined as a rigid body that moves in the plane.
+Therefore, its C-space is <!-- MATH
+ ${\cal C}= {\mathbb{R}}^2 \times {\mathbb{S}}^1$
+ -->
+<span class="MATH"><img width="104" height="38" align="MIDDLE" border="0" src="./car motion equations_files/img1426.gif" alt="$ {\cal C}= {\mathbb{R}}^2 \times {\mathbb{S}}^1$"></span>. Figure
+<a href="http://planning.cs.uiuc.edu/node658.html#fig:carlike">13.1</a> indicates several parameters associated with the
+car.  A configuration is denoted by <!-- MATH
+ $q = (x,y,\theta)$
+ -->
+<span class="MATH"><img width="100" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img3265.gif" alt="$ q = (x,y,\theta)$"></span>.  The body
+frame of the car places the origin at the center of rear axle, and the
+<span class="MATH"><img width="15" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img86.gif" alt="$ x$"></span>-axis points along the main axis of the car.  Let <span class="MATH"><img width="14" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img210.gif" alt="$ s$"></span> denote the
+(signed) speed<a name="tex2html455" href="http://planning.cs.uiuc.edu/footnode.html#foot77420"><sup><span class="arabic">13</span>.<span class="arabic">2</span></sup></a>  of the car.  Let <span class="MATH"><img width="16" height="34" align="MIDDLE" border="0" src="./car motion equations_files/img675.gif" alt="$ \phi $"></span> denote the
+steering angle (it is negative for the wheel orientations shown in
+Figure <a href="http://planning.cs.uiuc.edu/node658.html#fig:carlike">13.1</a>).  The distance between the front and rear
+axles is represented as <span class="MATH"><img width="18" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img83.gif" alt="$ L$"></span>.  If the steering angle is fixed at
+<span class="MATH"><img width="16" height="34" align="MIDDLE" border="0" src="./car motion equations_files/img675.gif" alt="$ \phi $"></span>, the car travels in a circular motion, in which the radius of
+the circle is <span class="MATH"><img width="14" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img1029.gif" alt="$ \rho$"></span>.  Note that <span class="MATH"><img width="14" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img1029.gif" alt="$ \rho$"></span> can be determined from the
+intersection of the two axes shown in Figure <a href="http://planning.cs.uiuc.edu/node658.html#fig:carlike">13.1</a> (the
+angle between these axes is <span class="MATH"><img width="27" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5478.gif" alt="$ \vert\phi\vert$"></span>).
+
+</p><p>
+Using the current notation, the task is to represent the motion of the
+car as a set of equations of the form
+</p><p></p>
+<div align="CENTER" class="mathdisplay"><a name="eqn:cargen"></a><!-- MATH
+ \begin{equation}
+\begin{split}
+{\dot x}& = f_1(x,y,\theta,s,\phi) \\
+{\dot y}& = f_2(x,y,\theta,s,\phi) \\
+{\dot \theta}& = f_3(x,y,\theta,s,\phi) .
+\end{split}
+\end{equation}
+ -->
+<table class="equation" cellpadding="0" width="100%" align="CENTER">
+<tbody><tr valign="MIDDLE">
+<td nowrap="" align="CENTER"><span class="MATH"><img width="153" height="89" border="0" src="./car motion equations_files/img5479.gif" alt="\begin{displaymath}\begin{split}{\dot x}&amp; = f_1(x,y,\theta,s,\phi)  {\dot y}&amp; ...
+...,\phi)  {\dot \theta}&amp; = f_3(x,y,\theta,s,\phi) . \end{split}\end{displaymath}"></span></td>
+<td nowrap="" class="eqno" width="10" align="RIGHT">
+(<span class="arabic">13</span>.<span class="arabic">11</span>)</td></tr>
+</tbody></table></div>
+<br clear="ALL"><p></p>
+In a small time interval, <span class="MATH"><img width="27" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img205.gif" alt="$ \Delta t$"></span>, the car must move approximately
+in the direction that the rear wheels are pointing.  In the limit as
+<span class="MATH"><img width="27" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img205.gif" alt="$ \Delta t$"></span> tends to zero, this implies that <!-- MATH
+ $dy/dx = \tan \theta$
+ -->
+<span class="MATH"><img width="119" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5480.gif" alt="$ dy/dx = \tan \theta$"></span>.
+Since <!-- MATH
+ $dy/dx = {\dot y}/{\dot x}$
+ -->
+<span class="MATH"><img width="109" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5481.gif" alt="$ dy/dx = {\dot y}/{\dot x}$"></span> and <!-- MATH
+ $\tan \theta = \sin\theta/\cos
+\theta$
+ -->
+<span class="MATH"><img width="155" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5482.gif" alt="$ \tan \theta = \sin\theta/\cos
+\theta$"></span>, this condition can be written as a Pfaffian
+constraint<a name="77428"></a> (recall (<a href="http://planning.cs.uiuc.edu/node656.html#eqn:pfaffian">13.5</a>)):
+<p></p>
+<div align="CENTER" class="mathdisplay"><a name="eqn:car-constr"></a><!-- MATH
+ \begin{equation}
+-{\dot x}\sin \theta + {\dot y}\cos \theta = 0 .
+\end{equation}
+ -->
+<table class="equation" cellpadding="0" width="100%" align="CENTER">
+<tbody><tr valign="MIDDLE">
+<td nowrap="" align="CENTER"><span class="MATH"><img width="182" height="34" align="MIDDLE" border="0" src="./car motion equations_files/img5483.gif" alt="$\displaystyle -{\dot x}\sin \theta + {\dot y}\cos \theta = 0 .$"></span></td>
+<td nowrap="" class="eqno" width="10" align="RIGHT">
+(<span class="arabic">13</span>.<span class="arabic">12</span>)</td></tr>
+</tbody></table></div>
+<br clear="ALL"><p></p>
+The constraint is satisfied if <!-- MATH
+ ${\dot x}= \cos \theta$
+ -->
+<span class="MATH"><img width="78" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img5484.gif" alt="$ {\dot x}= \cos \theta$"></span> and <!-- MATH
+ ${\dot y}= \sin
+\theta$
+ -->
+<span class="MATH"><img width="75" height="34" align="MIDDLE" border="0" src="./car motion equations_files/img5485.gif" alt="$ {\dot y}= \sin
+\theta$"></span>.  Furthermore, any scalar multiple of this solution is also a
+solution; the scaling factor corresponds directly to the speed <span class="MATH"><img width="14" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img210.gif" alt="$ s$"></span>
+of the car.  Thus, the first two scalar components of the
+configuration transition equation are <!-- MATH
+ ${\dot x}= s \cos \theta$
+ -->
+<span class="MATH"><img width="90" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img5486.gif" alt="$ {\dot x}= s \cos \theta$"></span> and
+<!-- MATH
+ ${\dot y}= s \sin \theta$
+ -->
+<span class="MATH"><img width="87" height="34" align="MIDDLE" border="0" src="./car motion equations_files/img5487.gif" alt="$ {\dot y}= s \sin \theta$"></span>.
+
+<p>
+The next task is to derive the equation for <!-- MATH
+ ${\dot \theta}$
+ -->
+<span class="MATH"><img width="14" height="21" align="BOTTOM" border="0" src="./car motion equations_files/img5488.gif" alt="$ {\dot \theta}$"></span>.  Let <span class="MATH"><img width="19" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img2794.gif" alt="$ w$"></span>
+denote the distance traveled by the car (the integral of speed).  As
+shown in Figure <a href="http://planning.cs.uiuc.edu/node658.html#fig:carlike">13.1</a>, <span class="MATH"><img width="14" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img1029.gif" alt="$ \rho$"></span> represents the radius of a
+circle that is traversed by the center of the rear axle, if the
+steering angle is fixed.  Note that <!-- MATH
+ $dw = \rho d\theta$
+ -->
+<span class="MATH"><img width="82" height="34" align="MIDDLE" border="0" src="./car motion equations_files/img5489.gif" alt="$ dw = \rho d\theta$"></span>.  From
+trigonometry, <!-- MATH
+ $\rho = L/\tan \phi$
+ -->
+<span class="MATH"><img width="106" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5490.gif" alt="$ \rho = L/\tan \phi$"></span>, which implies
+</p><p></p>
+<div align="CENTER" class="mathdisplay"><!-- MATH
+ \begin{equation}
+d\theta = {\tan \phi \over L} dw .
+\end{equation}
+ -->
+<table class="equation" cellpadding="0" width="100%" align="CENTER">
+<tbody><tr valign="MIDDLE">
+<td nowrap="" align="CENTER"><span class="MATH"><img width="123" height="60" align="MIDDLE" border="0" src="./car motion equations_files/img5491.gif" alt="$\displaystyle d\theta = {\tan \phi \over L} dw .$"></span></td>
+<td nowrap="" class="eqno" width="10" align="RIGHT">
+(<span class="arabic">13</span>.<span class="arabic">13</span>)</td></tr>
+</tbody></table></div>
+<br clear="ALL"><p></p>
+Dividing both sides by <span class="MATH"><img width="21" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img5492.gif" alt="$ dt$"></span> and using the fact that <!-- MATH
+ ${\dot w}= s$
+ -->
+<span class="MATH"><img width="53" height="16" align="BOTTOM" border="0" src="./car motion equations_files/img5493.gif" alt="$ {\dot w}= s$"></span> yields
+<p></p>
+<div align="CENTER" class="mathdisplay"><!-- MATH
+ \begin{equation}
+{\dot \theta}= {s \over L} \, \tan \phi .
+\end{equation}
+ -->
+<table class="equation" cellpadding="0" width="100%" align="CENTER">
+<tbody><tr valign="MIDDLE">
+<td nowrap="" align="CENTER"><span class="MATH"><img width="109" height="50" align="MIDDLE" border="0" src="./car motion equations_files/img5494.gif" alt="$\displaystyle {\dot \theta}= {s \over L}   \tan \phi .$"></span></td>
+<td nowrap="" class="eqno" width="10" align="RIGHT">
+(<span class="arabic">13</span>.<span class="arabic">14</span>)</td></tr>
+</tbody></table></div>
+<br clear="ALL"><p></p>
+
+<p>
+So far, the motion of the car has been modeled, but no action
+variables have been specified.  Suppose that the speed <span class="MATH"><img width="14" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img210.gif" alt="$ s$"></span> and
+steering angle <span class="MATH"><img width="16" height="34" align="MIDDLE" border="0" src="./car motion equations_files/img675.gif" alt="$ \phi $"></span> are directly specified by the action variables
+<span class="MATH"><img width="22" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img5495.gif" alt="$ u_s$"></span> and <span class="MATH"><img width="24" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img5496.gif" alt="$ u_\phi$"></span>, respectively.  The convention of using a <span class="MATH"><img width="15" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img253.gif" alt="$ u$"></span>
+variable with the old variable name appearing as a subscript will be
+followed.  This makes it easy to identify the actions in a
+configuration transition equation.  A two-dimensional action vector,
+<!-- MATH
+ $u = (u_s,u_\phi)$
+ -->
+<span class="MATH"><img width="101" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5497.gif" alt="$ u = (u_s,u_\phi)$"></span>, is obtained.  The configuration transition
+equation for the simple car is
+</p><p></p>
+<div align="CENTER" class="mathdisplay"><a name="eqn:ctecar"></a><!-- MATH
+ \begin{equation}
+\begin{split}
+{\dot x}& = u_s \cos\theta \\
+{\dot y}& = u_s \sin\theta \\
+{\dot \theta}& = \displaystyle\strut {u_s \over L} \tan u_\phi .
+\end{split}
+\end{equation}
+ -->
+<table class="equation" cellpadding="0" width="100%" align="CENTER">
+<tbody><tr valign="MIDDLE">
+<td nowrap="" align="CENTER"><span class="MATH"><img width="113" height="98" border="0" src="./car motion equations_files/img5498.gif" alt="\begin{displaymath}\begin{split}{\dot x}&amp; = u_s \cos\theta  {\dot y}&amp; = u_s \s...
+...&amp; = \displaystyle\strut {u_s \over L} \tan u_\phi . \end{split}\end{displaymath}"></span></td>
+<td nowrap="" class="eqno" width="10" align="RIGHT">
+(<span class="arabic">13</span>.<span class="arabic">15</span>)</td></tr>
+</tbody></table></div>
+<br clear="ALL"><p></p>
+
+<p>
+As expressed in (<a href="http://planning.cs.uiuc.edu/node658.html#eqn:ctecar">13.15</a>), the transition equation is not yet
+complete without specifying <span class="MATH"><img width="19" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img38.gif" alt="$ U$"></span>, the set of actions of the form <!-- MATH
+ $u =
+(u_s,u_\phi)$
+ -->
+<span class="MATH"><img width="101" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5497.gif" alt="$ u = (u_s,u_\phi)$"></span>.  First suppose that any <!-- MATH
+ $u_s \in {\mathbb{R}}$
+ -->
+<span class="MATH"><img width="60" height="34" align="MIDDLE" border="0" src="./car motion equations_files/img5499.gif" alt="$ u_s \in {\mathbb{R}}$"></span> is possible.
+What steering angles are possible?  The interval <!-- MATH
+ $[-\pi/2,\pi/2]$
+ -->
+<span class="MATH"><img width="98" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5500.gif" alt="$ [-\pi/2,\pi/2]$"></span> is
+sufficiently large for the steering angle <span class="MATH"><img width="24" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img5496.gif" alt="$ u_\phi$"></span> because any other
+value is equivalent to one between <span class="MATH"><img width="50" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5501.gif" alt="$ -\pi/2$"></span> and <span class="MATH"><img width="35" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img1429.gif" alt="$ \pi/2$"></span>.  Steering
+angles of <span class="MATH"><img width="35" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img1429.gif" alt="$ \pi/2$"></span> and <span class="MATH"><img width="50" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5501.gif" alt="$ -\pi/2$"></span> are problematic.  To derive the
+expressions for <span class="MATH"><img width="15" height="16" align="BOTTOM" border="0" src="./car motion equations_files/img3025.gif" alt="$ {\dot x}$"></span> and <span class="MATH"><img width="15" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img5411.gif" alt="$ {\dot y}$"></span>, it was assumed that the car moves
+in the direction that the rear wheels are pointing.  Imagine you are
+sitting on a tricycle and turn the front wheel perpendicular to the
+rear wheels (assigning <!-- MATH
+ $u_\phi = \pi/2$
+ -->
+<span class="MATH"><img width="79" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5502.gif" alt="$ u_\phi = \pi/2$"></span>).  If you are able to pedal,
+then the tricycle should rotate in place.  This means that <!-- MATH
+ ${\dot x}=
+{\dot y}= 0$
+ -->
+<span class="MATH"><img width="85" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img5408.gif" alt="$ {\dot x}= {\dot y}= 0$"></span> because the center of the rear axle does not translate.
+
+</p><p>
+This strange behavior is not allowed for a standard automobile.  A car
+with rear-wheel drive would probably skid the front wheels across the
+pavement.  If a car with front-wheel drive attempted this, it should
+behave as a tricycle; however, this is usually not possible because
+the front wheels would collide with the front axle when turned to
+<!-- MATH
+ $\phi = \pi/2$
+ -->
+<span class="MATH"><img width="71" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5503.gif" alt="$ \phi = \pi/2$"></span>.  Therefore, the simple car should have a maximum
+steering angle, <!-- MATH
+ $\phi_{max} < \pi/2$
+ -->
+<span class="MATH"><img width="99" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5504.gif" alt="$ \phi_{max} &lt; \pi/2$"></span>, and we require that <!-- MATH
+ $|\phi| \leq
+\phi_{max}$
+ -->
+<span class="MATH"><img width="91" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5505.gif" alt="$ \vert\phi\vert \leq
+\phi_{max}$"></span>.  Observe from Figure <a href="http://planning.cs.uiuc.edu/node658.html#fig:carlike">13.1</a> that a maximum
+steering angle implies a <em>minimum turning radius</em><a name="79922"></a>, <!-- MATH
+ $\rho_{min}$
+ -->
+<span class="MATH"><img width="40" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img5506.gif" alt="$ \rho_{min}$"></span>.
+For the case of a tricycle, <!-- MATH
+ $\rho_{min} = 0$
+ -->
+<span class="MATH"><img width="74" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img5507.gif" alt="$ \rho_{min} = 0$"></span>.  You may have
+encountered the problem of a minimum turning radius while trying to
+make an illegal U-turn.  It is sometimes difficult to turn a car
+around without driving it off of the road.
+
+</p><p>
+Now return to the speed <span class="MATH"><img width="22" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img5495.gif" alt="$ u_s$"></span>.  On level pavement, a real vehicle has
+a top speed, and its behavior should change dramatically depending on
+the speed.  For example, if you want to drive along the minimum
+turning radius, you should not drive at 140km/hr.  It seems that the
+maximum steering angle should reduce at higher speeds.  This enters
+the realm of dynamics, which will be allowed after phase spaces are
+introduced in Section <a href="http://planning.cs.uiuc.edu/node667.html#sec:phase">13.2</a>.  Following this, some models of
+cars with dynamics will be covered in Sections <a href="http://planning.cs.uiuc.edu/node674.html#sec:addint">13.2.4</a> and
+<a href="http://planning.cs.uiuc.edu/node686.html#sec:rigidmot">13.3.3</a>.
+
+</p><p>
+It has been assumed implicitly that the simple car is moving slowly to
+safely neglect dynamics.  A bound such as <!-- MATH
+ $|u_s| \leq 1$
+ -->
+<span class="MATH"><img width="68" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5508.gif" alt="$ \vert u_s\vert \leq 1$"></span> can be placed
+on the speed without affecting the configurations that it can reach.
+The speed can even be constrained as <!-- MATH
+ $u_s \in \{-1,0,1\}$
+ -->
+<span class="MATH"><img width="125" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5509.gif" alt="$ u_s \in \{-1,0,1\}$"></span> without
+destroying reachability.  Be careful, however, about a bound such as
+<!-- MATH
+ $0 \leq u_s \leq 1$
+ -->
+<span class="MATH"><img width="92" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img5510.gif" alt="$ 0 \leq u_s \leq 1$"></span>.  In this case, the car cannot drive in reverse!
+This clearly affects the set of reachable configurations.  Imagine a
+car that is facing a wall and is unable to move in reverse.  It may be
+forced to hit the wall as it moves.
+
+</p><p>
+Based on these considerations regarding the speed and steering angle,
+several interesting variations are possible:
+
+</p><ol>
+<li>[] <b>Tricycle:</b><a name="77458"></a> <!-- MATH
+ $U = [-1,1] \times
+[-\pi/2,\pi/2]$
+ -->
+<span class="MATH"><img width="214" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5511.gif" alt="$ U = [-1,1] \times
+[-\pi/2,\pi/2]$"></span>.  Assuming front-wheel drive, the ``car'' can rotate
+in place if <!-- MATH
+ $u_\phi = \pi/2$
+ -->
+<span class="MATH"><img width="79" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5502.gif" alt="$ u_\phi = \pi/2$"></span> or <!-- MATH
+ $u_\phi = \pi/2$
+ -->
+<span class="MATH"><img width="79" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5502.gif" alt="$ u_\phi = \pi/2$"></span>.  This is unrealistic
+for a simple car.  The resulting model is similar to that of the
+simple unicycle, which appears later in (<a href="http://planning.cs.uiuc.edu/node660.html#eqn:unicycle">13.18</a>).
+</li>
+<li>[] <b>Simple Car [<a href="http://planning.cs.uiuc.edu/node858.html#LauSekLam98">596</a>]:</b> <!-- MATH
+ $U = [-1,1] \times
+(-\phi_{max},\phi_{max})$
+ -->
+<span class="MATH"><img width="235" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5512.gif" alt="$ U = [-1,1] \times
+(-\phi_{max},\phi_{max})$"></span>.  By requiring that <!-- MATH
+ $|u_\phi| \leq \phi_{max}
+< \pi/2$
+ -->
+<span class="MATH"><img width="154" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5513.gif" alt="$ \vert u_\phi\vert \leq \phi_{max}
+&lt; \pi/2$"></span>, a car with minimum turning radius <!-- MATH
+ $\rho_{min} =
+L/\tan\phi_{max}$
+ -->
+<span class="MATH"><img width="159" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5514.gif" alt="$ \rho_{min} =
+L/\tan\phi_{max}$"></span> is obtained.
+</li>
+<li>[] <b>Reeds-Shepp Car
+[<a href="http://planning.cs.uiuc.edu/node858.html#ReeShe90">814</a>,<a href="http://planning.cs.uiuc.edu/node858.html#SusTan91">923</a>]:</b><a name="77467"></a> Further restrict the
+speed of the simple car so that <!-- MATH
+ $u_s \in \{-1,0,1\}$
+ -->
+<span class="MATH"><img width="125" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5509.gif" alt="$ u_s \in \{-1,0,1\}$"></span>.<a name="tex2html456" href="http://planning.cs.uiuc.edu/footnode.html#foot77468"><sup><span class="arabic">13</span>.<span class="arabic">3</span></sup></a>  This model intuitively
+makes <span class="MATH"><img width="22" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img5495.gif" alt="$ u_s$"></span> correspond to three discrete ``gears'': reverse, park, or
+forward.  An interesting question under this model is: What is the
+shortest possible path (traversed in <!-- MATH
+ ${\mathbb{R}}^2$
+ -->
+<span class="MATH"><img width="26" height="19" align="BOTTOM" border="0" src="./car motion equations_files/img10.gif" alt="$ {\mathbb{R}}^2$"></span> by the center of the rear
+axle) between two configurations in the absence of obstacles?  This is
+answered in Section <a href="http://planning.cs.uiuc.edu/node820.html#sec:geodesic">15.3</a>.
+</li>
+<li>[] <b>Dubins Car [<a href="http://planning.cs.uiuc.edu/node858.html#Dub57">294</a>]:</b><a name="77471"></a> 
+Remove the reverse speed <span class="MATH"><img width="72" height="33" align="MIDDLE" border="0" src="./car motion equations_files/img5516.gif" alt="$ u_s = -1$"></span> from the
+Reeds-Shepp car to obtain <!-- MATH
+ $u_s \in \{0,1\}$
+ -->
+<span class="MATH"><img width="92" height="37" align="MIDDLE" border="0" src="./car motion equations_files/img5517.gif" alt="$ u_s \in \{0,1\}$"></span> as the only possible
+speeds.  The shortest paths in <!-- MATH
+ ${\mathbb{R}}^2$
+ -->
+<span class="MATH"><img width="26" height="19" align="BOTTOM" border="0" src="./car motion equations_files/img10.gif" alt="$ {\mathbb{R}}^2$"></span> for this car are quite
+different than for the Reeds-Shepp car; see Section
+<a href="http://planning.cs.uiuc.edu/node820.html#sec:geodesic">15.3</a>.
+</li>
+</ol>
+The car that was shown in Figure <a href="http://planning.cs.uiuc.edu/node15.html#fig:airbus">1.12</a>a of Section
+<a href="http://planning.cs.uiuc.edu/node5.html#sec:ill">1.2</a> is even more restricted than the Dubins car because it
+is additionally forced to turn left.
+
+<p>
+Basic controllability issues have been studied thoroughly for the
+simple car.  These will be covered in Section <a href="http://planning.cs.uiuc.edu/node824.html#sec:nsys">15.4</a>, but it
+is helpful to develop intuitive notions here to assist in
+understanding the planning algorithms of Chapter <a href="http://planning.cs.uiuc.edu/node713.html#cha:nplan">14</a>.  The
+simple car is considered <em>nonholonomic</em> because there are
+differential constraints that cannot be completely integrated.  This
+means that the car configurations are not restricted to a lower
+dimensional subspace of <span class="MATH"><img width="16" height="17" align="BOTTOM" border="0" src="./car motion equations_files/img116.gif" alt="$ {\cal C}$"></span>.  The Reeds-Shepp car can be maneuvered
+into an arbitrarily small parking space, provided that a small amount
+of clearance exists.  This property is called <em>small-time local
+controllability</em><a name="79929"></a> and is presented in Section
+<a href="http://planning.cs.uiuc.edu/node809.html#sec:controllability">15.1.3</a>.  The Dubins car is nonholonomic, but it
+does not possess this property.  Imagine the difficulty of parallel
+parking<a name="77481"></a> without using the reverse gear.  In an
+infinitely large parking lot without obstacles, however, the Dubins
+car can reach any configuration.
+
+</p><p>
+<a name="77482"></a>
+
+</p><p>
+
+</p><div class="navigation"><hr> 
+<a name="tex2html12101" href="http://planning.cs.uiuc.edu/node659.html">
+<img width="37" height="24" align="BOTTOM" border="0" alt="next" src="./car motion equations_files/next.gif"></a> 
+<a name="tex2html12095" href="http://planning.cs.uiuc.edu/node657.html">
+<img width="26" height="24" align="BOTTOM" border="0" alt="up" src="./car motion equations_files/up.gif"></a> 
+<a name="tex2html12089" href="http://planning.cs.uiuc.edu/node657.html">
+<img width="63" height="24" align="BOTTOM" border="0" alt="previous" src="./car motion equations_files/prev.gif"></a> 
+<a name="tex2html12097" href="http://planning.cs.uiuc.edu/node1.html">
+<img width="65" height="24" align="BOTTOM" border="0" alt="contents" src="./car motion equations_files/contents.gif"></a> 
+<a name="tex2html12099" href="http://planning.cs.uiuc.edu/node859.html">
+<img width="43" height="24" align="BOTTOM" border="0" alt="index" src="./car motion equations_files/index.gif"></a>
+<br>
+<b> Next:</b> <a name="tex2html12102" href="http://planning.cs.uiuc.edu/node659.html">13.1.2.2 A differential drive</a>
+<b>Up:</b> <a name="tex2html12096" href="http://planning.cs.uiuc.edu/node657.html">13.1.2 Kinematics for Wheeled</a>
+<b> Previous:</b> <a name="tex2html12090" href="http://planning.cs.uiuc.edu/node657.html">13.1.2 Kinematics for Wheeled</a>
+<hr> <p>
+</p></div>
+<!--End of Navigation Panel-->
+<address>
+Steven M LaValle
+2012-04-20
+</address>
+
+
+</body></html>
