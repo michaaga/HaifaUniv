@@ -1,0 +1,6 @@
+﻿  camera_calibration.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 618 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  CameraCalibrationOpenCV.vcxproj -> C:\Users\AGA\source\repos\CameraCalibrationOpenCV\x64\Release\CameraCalibrationOpenCV.exe

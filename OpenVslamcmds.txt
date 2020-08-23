@@ -1,0 +1,24 @@
+ ./run_video_localization \
+    -v orb_vocab/orb_vocab.dbow2 \
+    -c aist_living_lab_2/config.yaml \
+    -m MichaStreet/local2.mp4 \
+	--frame-skip 3 \
+    --map-db MichaStreet.msg \
+	--mapping
+	
+	./run_video_slam \
+    -v orb_vocab/orb_vocab.dbow2 \
+    -c aist_living_lab_1/config.yaml \
+    -m MichaStreet/street2.mp4 \
+    --map-db MichaStreet.msg \
+	--auto-term \
+	--eval-log
+	
+	
+	removed:
+	--frame-skip 3 \
+
+Evo:
+
+cut --delimiter " " --fields 1-8 KeyFrameNavStateTrajectory.txt > clean.tum
+root@DESKTOP-MTO5KKC:/home/michaaga/evo# evo_traj tum ../../michaaga/openvslam/build/keyframe_trajectory.txt -p

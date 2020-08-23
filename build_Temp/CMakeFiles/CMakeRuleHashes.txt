@@ -1,0 +1,2 @@
+# Hashes of file build rules.
+ffcdb4e401333a9ca50cc2ea78569519 src/socket_publisher/map_segment.pb.cc

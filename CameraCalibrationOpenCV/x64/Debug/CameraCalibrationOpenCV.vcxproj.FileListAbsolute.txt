@@ -1,0 +1,2 @@
+C:\Users\AGA\source\repos\CameraCalibrationOpenCV\x64\Debug\CameraCalibrationOpenCV.exe
+C:\Users\AGA\source\repos\CameraCalibrationOpenCV\x64\Debug\CameraCalibrationOpenCV.pdb
